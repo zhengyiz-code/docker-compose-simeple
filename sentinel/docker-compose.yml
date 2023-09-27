@@ -1,0 +1,8 @@
+version: '3'
+services:
+    sentinel-dashboard:
+      image: bladex/sentinel-dashboard:latest
+      container_name: sentinel-dashboard
+      ports:
+        - 8858:8858
+      env_file: env/.env
