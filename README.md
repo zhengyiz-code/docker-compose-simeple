@@ -3,6 +3,7 @@
 
 不必输入一长串docker命令来启动对应服务，并且可以做到持久化。
 
+
 ## 列表
 
 | 名称 | 备注 |
@@ -10,6 +11,16 @@
 | [mysql](mysql) | MySQL是一个关系型数据库管理系统，由瑞典MySQL AB 公司开发，目前属于 Oracle 旗下产品 |
 | [redis](redis) | Redis是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。 |
 
+## 容器之间通讯
+1. 创建network
+```
+docker network create my-net
+```
+2. 查看容器网络
+
+```
+docker inspect ***
+```
 
 
 ## 备注

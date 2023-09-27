@@ -3,11 +3,15 @@ version: '3'
 services:
   db:
     image: mysql:8.0.20
-    restart: always
     container_name: "mysql_8"
     environment:
       MYSQL_ROOT_PASSWORD: 123456
     ports:
       - 3306:3306
     volumes:
-      - ./data:/var/lib/mysql
+      - ./data/:/var/lib/mysql
+    networks:
+      - my-net
+networks:
+  my-net:
+    external: true # 来自外部
