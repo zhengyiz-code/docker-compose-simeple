@@ -14,7 +14,7 @@
 ## 容器之间通讯
 1. 创建network
 ```
-docker network create my-net
+docker network create my-net  --gateway=192.168.16.1 --subnet=192.168.16.0/16
 ```
 2. 查看容器网络
 

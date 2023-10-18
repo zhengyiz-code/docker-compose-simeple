@@ -27,31 +27,29 @@ services:
         fileReservedTime = 48
         brokerRole = ASYNC_MASTER
         flushDiskType = ASYNC_FLUSH
-        brokerIP1=localhost
+        brokerIP1=172.24.0.4
+        grpcServerPort=8081
     volumes:
       - ${DOCKER_VOLUME_DIRECTORY:-./volumes}/logs:/home/rocketmq/logs
       - ${DOCKER_VOLUME_DIRECTORY:-./volumes}/store:/home/rocketmq/store
     ports:
       # Dashboard pass through
-      - "127.0.0.1:8080:8080" 
-      - "127.0.0.1:10909:10909"
-      - "127.0.0.1:10911:10911"
-      - "127.0.0.1:10912:10912"
+      - 10909:10909
+      - 10911:10911
+      - 10912:10912
     command: |
       bash -c '
       mkdir -p /home/rocketmq/conf && 
       echo "$$BROKER_CONF" > /home/rocketmq/conf/broker.conf && 
-      ./mqbroker -c /home/rocketmq/conf/broker.conf
+      ./mqbroker -c /home/rocketmq/conf/broker.conf --enable-proxy 
       '
 
   dashboard:
     container_name: rocketmq-dashboard
     image: apacherocketmq/rocketmq-dashboard:latest
     # Access broker with localhost, port 8080 exposed in broker service
-    network_mode: "service:broker"
+    ports:
+      # Dashboard pass through
+      - 8080:8080
     environment:
       JAVA_OPTS: -Drocketmq.namesrv.addr=namesrv:9876
-
-networks:
-  default:
-    name: rocketmq-network

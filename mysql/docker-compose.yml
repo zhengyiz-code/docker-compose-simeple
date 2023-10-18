@@ -11,7 +11,8 @@ services:
     volumes:
       - ./data/:/var/lib/mysql
     networks:
-      - my-net
+      my-net:
+        ipv4_address: 192.168.16.3
 networks:
   my-net:
     external: true # 来自外部
